@@ -51,14 +51,14 @@ const Encrypt = () => {
 
     // next button
     const nextButton = multiStep.percent < 100 ? (
-        <div class="next-btn">
+        <div className="next-btn">
             <Button value="Next" onClick={stepForward} fontsize="3vh" />
         </div>
     ) : ( "" )
 
     // back button
     const backButton = multiStep.percent > 25 ? (
-        <div class="back-btn">
+        <div className="back-btn">
             <Button value="Back" onClick={stepBack} fontsize="3vh" />
         </div>
     ) : ( "" )
@@ -66,7 +66,7 @@ const Encrypt = () => {
     // return button
     const navigate = useNavigate();
     const returnButton = multiStep.percent >= 100 ? (
-        <div class="return-btn">
+        <div className="return-btn">
             <Button value="Home" onClick={() => navigate("/")} fontsize="3vh" />
         </div>
     ) : ( "" )
@@ -84,7 +84,7 @@ const Encrypt = () => {
     // warning messages
     const warningMessage = (
         state.shortText ? (
-            <div class="short-text">Please enter at least 3 characters</div>
+            <div className="short-text">Please enter at least 3 characters</div>
         ) : (
             ""
         )
@@ -92,8 +92,8 @@ const Encrypt = () => {
 
     // page
     const displayPage = (
-        <div class="encrypt-section">
-            <div class="progress-bar">
+        <div className="encrypt-section">
+            <div className="progress-bar">
                 <ProgressBar width={"100vh"} height={5} percent={multiStep.percent}>
                 <Step transition="scale">
                     {({ accomplished, index }) => state.shortText ? (
@@ -155,19 +155,19 @@ const Encrypt = () => {
                 </ProgressBar>
             </div>
 
-            <div class="encrypt-box">
+            <div className="encrypt-box">
                 {displayForm}
-                <div class="warning">
+                <div className="warning">
                     {warningMessage}
                 </div>
-                <div class="encrypt-buttons">
-                    <div class="backBtn">
+                <div className="encrypt-buttons">
+                    <div className="backBtn">
                         {backButton}
                     </div>
-                    <div class="nextBtn">
+                    <div className="nextBtn">
                         {nextButton}
                     </div>
-                    <div class="returnBtn">
+                    <div className="returnBtn">
                         {returnButton}
                     </div>
                 </div>
@@ -176,7 +176,7 @@ const Encrypt = () => {
     )
 
     return (
-        <div class="encrypt-container">
+        <div className="encrypt-container">
             {displayPage}
         </div>
     )

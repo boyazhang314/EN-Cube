@@ -1,6 +1,17 @@
 .generate-title {
     font-size: 6vh;
+    text-align: center;
     color: #00a2ff;
     font-family: 'Rubik', sans-serif;
     user-select: none;
+
+}
+
+.c {
+    margin-top: -10vh;
+    margin-bottom: -10vh;
+}
+
+.move{
+    color: white;
 }
