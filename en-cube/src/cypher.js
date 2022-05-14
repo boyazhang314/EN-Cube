@@ -4,6 +4,7 @@
 
 // encrypts the text in accordance to the key
 const encrypt = (text, key) => {
+  console.log(textToHex(text))
   var enc = textToHex(text).split('') // convert text to hexadecimal array
 
   // get individual moves
@@ -13,13 +14,15 @@ const encrypt = (text, key) => {
     switch(code.charAt(0)) {
       // X axis
       case "L": case "M": case "R":
-        enc = xAxisEncode(enc, code)
+        enc = xAxisEncode(enc, code, 1)
         break
       // Y axis
       case "U": case "E": case "D":
+        enc = yAxisEncode(enc, code, 1)
         break
       // Z axis
       case "F": case "S": case "B":
+        enc = zAxisEncode(enc, code, 1)
         break
       default:
         break
@@ -30,7 +33,7 @@ const encrypt = (text, key) => {
 }
 
 // encode all x-axis moves
-function xAxisEncode(text, code) {
+function xAxisEncode(text, code, shift) {
   let ind, op
   switch(code.charAt(0)) {
     case "L":
@@ -63,7 +66,7 @@ function xAxisEncode(text, code) {
 
   while (ind < text.length) {
     let n = hexToDec(text[ind])
-    text[ind] = caesar(n, 1, op)
+    text[ind] = caesar(n, shift, op)
     ind += 3
   }
   
@@ -71,18 +74,99 @@ function xAxisEncode(text, code) {
 }
 
 // encode all y-axis moves
-function yAxisEncode(text, code) {
-  let ind, op
+function yAxisEncode(text, code, shift) {
+  let dir, ind, inc
   switch(code.charAt(0)) {
     case "U":
+      ind = 0
+      inc = 2
+      if (code.charAt(1) === "'") {
+        dir = '->'
+      } else {
+        dir = '<-'
+      }
       break;
     case "E":
+      ind = 0
+      inc = 1
+      if (code.charAt(1) === "'") {
+        dir = '->'
+      } else {
+        dir = '<-'
+      }
       break;
     case "D":
+      ind = 1
+      inc = 2
+      if (code.charAt(1) === "'") {
+        dir = '<-'
+      } else {
+        dir = '->'
+      }
       break;
     default:
       break;
   }
+
+  let poi = [ind + (shift * inc)] % text.length
+  const copy = [...text]
+
+  while (ind < text.length) {
+    if (dir === "->") {
+      text[poi] = copy[ind]
+    } else if (dir === "<-") {
+      text[ind] = copy[poi]
+    }
+    ind += inc
+    poi = (poi + inc) % text.length
+  }
+
+  return text
+}
+
+// encode all z-axis moves
+function zAxisEncode(text, code, shift) {
+  let start, end, rot
+  switch(code.charAt(0)) {
+    case "F":
+      start = 0
+      end = text.length - 1
+      if (code.charAt(1) === "'") {
+        rot = "-+"
+      } else {
+        rot = '+-'
+      }
+      break
+    case "S":
+      start = 1
+      end = text.length - 2
+      if (code.charAt(1) === "'") {
+        rot = "-+"
+      } else {
+        rot = '+-'
+      }
+      break
+    case "B":
+      start = 2
+      end = text.length - 3
+      if (code.charAt(1) === "'") {
+        rot = "+-"
+      } else {
+        rot = '-+'
+      }
+      break
+    default:
+      break
+  }
+
+  while (start < end) {
+    text[start] = caesar(hexToDec(text[start]), shift, rot.charAt(0))
+    text[end] = caesar(hexToDec(text[end]), shift, rot.charAt(1))
+    start += 3
+    end -= 3
+  }
+
+  return text
 }
 
 // converts ASCII to hexadecimal
@@ -144,9 +228,3 @@ caesar = (n, shift, op) => {
   }
   return -1
 }
-
-
-// testing
-const text = "abcde"
-const key = "R R'"
-console.log(encrypt(text, key))
