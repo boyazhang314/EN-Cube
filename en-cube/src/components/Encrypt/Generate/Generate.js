@@ -2,15 +2,11 @@ import React from "react"
 import { useState, useEffect, useRef } from "react"
 import "./Generate.css"
 
-const Generate = () => {
+const Generate = ({state, setState}) => {
   const [moves, setMoves] = useState({ m: [] })
-  const [moveKeys, setMoveKeys] = useState({ keys: "" })
   const ref = useRef()
   useEffect(() => {
-    console.log(window.cube)
-    console.log(window.cube)
     ref.current.appendChild(window.cube.domElement)
-    console.log(document.getElementById("root1"))
   }, [])
 
   useEffect(() => {
@@ -20,15 +16,38 @@ const Generate = () => {
     return () => clearInterval(interval)
   }, [])
 
+  // conver moves to readable letters
+  function convert(ch) {
+    if (ch.toUpperCase() === ch) {
+      return ch;
+    } else {
+      return ch.toUpperCase() + "'"
+    }
+  }
+
   var key = ""
-  moves.m.map((move) => (key += move.command))
-//   setMoveKeys({ keys: key })
+  for (let i = 0; i < moves.m.length; ++i) {
+    if (i > 40) break;
+    key += " " + convert(moves.m[i].command)
+  }
+
+  const moveList = moves.m.length === 0 ? (
+    <div className="generate-title">Generate Key</div>
+  ) : (
+    <div className="move">{key}</div>
+  )
+
+  useEffect(() => {
+    setState({
+      ...state,
+      secretKey: key
+    })
+  }, [key])
 
   return (
     <div className="generate-container">
-      <div className="generate-title">Generate Key</div>
+      {moveList}
       <div className="c" ref={ref}></div>
-      <div className="move">{key}</div>
     </div>
   )
 }

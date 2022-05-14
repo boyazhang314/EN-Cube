@@ -12,8 +12,23 @@
     user-select: none;
 }
 
+.cypher-subtitle {
+    font-size: 4vh;
+    color: #ffffff;
+    font-family: 'Rubik', sans-serif;
+    user-select: none;
+    margin-top: 5%;
+}
+
 .cypher-body {
     margin-top: 4vh;
+    width: 100vh;
+    padding: 1vh;
+    text-align: center;
+    background-color: rgb(17, 17, 65);
+}
+
+.cypher-subody {
     width: 100vh;
     padding: 1vh;
     text-align: center;

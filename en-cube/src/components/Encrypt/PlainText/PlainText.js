@@ -19,7 +19,7 @@ const PlainText = ({state, setState}) => {
             <div class="input-text">
                 <textarea class="plaintext-input" rows="15"
                     onBlur={handleChange}
-                ></textarea>
+                >{state.plainText}</textarea>
             </div>
         </div>
     )

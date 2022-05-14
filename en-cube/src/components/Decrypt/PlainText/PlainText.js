@@ -1,6 +1,7 @@
 import React from "react"
 
 import "./PlainText.css"
+import { decrypt } from "../../../cypher.js"
 
 const PlainText = ({state}) => {
     return (
@@ -10,7 +11,7 @@ const PlainText = ({state}) => {
             </div>
             <div class="text-body">
                 <div class="text-text">
-                    {state.cypherText}
+                    {decrypt(state.cypherText, state.secretKey)}
                 </div>
             </div>
             <div class="copy-button">

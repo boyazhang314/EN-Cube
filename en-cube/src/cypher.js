@@ -4,8 +4,8 @@
 
 // encrypts the text in accordance to the key
 const encrypt = (text, key) => {
-  console.log(textToHex(text))
   var enc = textToHex(text).split('') // convert text to hexadecimal array
+  console.log(enc)
 
   // get individual moves
   var codes = key.split(" ")
@@ -29,8 +29,27 @@ const encrypt = (text, key) => {
     }
   }
 
-  return enc.join('')
+  return hexToText(enc.join(''))
 }
+
+// decrypts the text in accordance to the key
+const decrypt = (text, key) => {
+  // get individual moves reversed
+  var codes = key.split(" ").reverse()
+  // invert
+  for (let i = 0; i < codes.length; ++i) {
+    if (codes[i].charAt(1) === "'") {
+      codes[i] = codes[i].charAt(0) // remove prime
+    } else {
+      codes[i] = codes[i] + "'" // add prime
+    }
+  }
+  
+  return (encrypt(text, codes.join(" ")))
+}
+
+console.log(encrypt("Kevin", "U R' M E' R'"))
+console.log(hexToText(decrypt("e6b6565693", "U R' M E' R")))
 
 // encode all x-axis moves
 function xAxisEncode(text, code, shift) {
@@ -170,17 +189,41 @@ function zAxisEncode(text, code, shift) {
 }
 
 // converts ASCII to hexadecimal
-textToHex = (ascii) => {
+function textToHex(ascii) {
   var arr = []
   for (let i = 0; i < ascii.length; ++i) {
-    var hex = Number(ascii.charCodeAt(i)).toString(16)
+    var hex = convert16(Number(ascii.charCodeAt(i)))
     arr.push(hex)
   }
   return arr.join('')
 }
 
+// converts hexadecimal to ASCII
+function hexToText(hex) {
+  var str = ""
+  for (let i = 0; i < hex.length; i += 2) {
+    str += String.fromCharCode(parseInt(hex.substr(i, 2), 16))
+  }
+  return str
+}
+
+// convert to base 16
+function convert16(num) {
+  var res = []
+  while (num > 0) {
+    res.push(num % 16)
+    num = Math.floor(num / 16)
+  }
+  res.reverse()
+  var str = ""
+  for (let i = 0; i < res.length; ++i) {
+    str += decToHex(res[i])
+  }
+  return str
+}
+
 // decimal to hexadecimal
-decToHex = (d) => {
+function decToHex(d) {
   if (d < 10) return d.toString();
   switch(d) {
     case 10:
@@ -199,7 +242,7 @@ decToHex = (d) => {
 }
 
 // hexadecimal to decimal
-hexToDec = (h) => {
+function hexToDec(h) {
   switch(h) {
     case "a":
       return 10
@@ -219,7 +262,7 @@ hexToDec = (h) => {
 }
 
 // caesar cypher
-caesar = (n, shift, op) => {
+function caesar(n, shift, op) {
   switch(op) {
     case '+':
       return decToHex((n + shift) % 16)
@@ -228,3 +271,5 @@ caesar = (n, shift, op) => {
   }
   return -1
 }
+
+export { encrypt, decrypt }

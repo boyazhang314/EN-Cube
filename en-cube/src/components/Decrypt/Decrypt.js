@@ -14,36 +14,16 @@ const Decrypt = () => {
     const [state, setState] = useState({
         cypherText: "",
         secretKey: "",
-        invalidCypher: false,
         shortText: false
     })
     
     // multistep form
     const [multiStep, setMultiStep] = useState({percent: 25})
 
-    // check if hex
-    function isHex(str) {
-        const regex = new RegExp('^[0-9A-fa-f]*$')
-        return regex.test(str)
-    }    
-
     const stepForward = () => {
         if (multiStep.percent < 75) {
             if (state.cypherText.length >= 3) {
-                // invalid cypher not properly updating
-                if (isHex(state.cypherText)) {
-                    setMultiStep({ ...multiStep, percent: multiStep.percent + 50 })
-                    setState({
-                        ...state,
-                        invalidCypher: false
-                    })
-                } else {
-                    setMultiStep({ ...multiStep, percent: multiStep.percent })
-                    setState({
-                        ...state,
-                        invalidCypher: true
-                    })
-                }
+                setMultiStep({ ...multiStep, percent: multiStep.percent + 50 })
                 setState({
                     ...state,
                     shortText: false
@@ -104,8 +84,6 @@ const Decrypt = () => {
     const warningMessage = (
         state.shortText ? (
             <div class="short-text">Please enter at least 3 characters</div>
-        ) : state.invalidCypher ? (
-            <div class="short-text">Please enter a valid cypher text</div>
         ) : ( "" )
     )
 
@@ -115,7 +93,7 @@ const Decrypt = () => {
             <div class="progress-bar">
                 <ProgressBar width={"100vh"} height={5} percent={multiStep.percent}>
                 <Step transition="scale">
-                    {({ accomplished, index }) => (state.invalidCypher || state.shortText) ? (
+                    {({ accomplished, index }) => (state.shortText) ? (
                         <div className="progress-step fail">
                         <div
                             className="progress-step-circle"

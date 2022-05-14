@@ -13,6 +13,7 @@ import CypherText from "./CypherText/CypherText"
 const Encrypt = () => {
     const [state, setState] = useState({
         plainText: "",
+        secretKey: "",
         shortText: false
     })
 

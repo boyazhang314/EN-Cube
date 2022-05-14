@@ -8,10 +8,18 @@
 }
 
 .c {
+    z-index: 0;
     margin-top: -10vh;
     margin-bottom: -10vh;
 }
 
 .move{
     color: white;
+    user-select: text;
+    font-size: 3vh;
+    max-width: 100%;
+    font-family: url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;700;800&display=swap');
+    text-align: center;
+    white-space: nowrap;
+    overflow-x: auto;
 }
