@@ -1,0 +1,58 @@
+.encrypt-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.progress-bar {
+    margin: 5%;
+}
+
+.progress-step {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+}
+
+.progress-step-circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    width: 7vh;
+    height: 7vh;
+    color: white;
+}
+
+.progress-step-title {
+    font-size: 3vh;
+    font-family: url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;700;800&display=swap');
+    width: fit-content;
+}
+
+.encrypt-box {
+    margin-top: 5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.encrypt-buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    margin-top: 5%;
+}
+
+.warning {
+    font-size: 2vh;
+    font-family: url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;700;800&display=swap');
+    color: #FF2400;
+    user-select: none;
+}

@@ -1,0 +1,44 @@
+.cypher-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.cypher-title {
+    font-size: 6vh;
+    color: #00a2ff;
+    font-family: 'Rubik', sans-serif;
+    user-select: none;
+}
+
+.cypher-body {
+    margin-top: 4vh;
+    width: 100vh;
+    padding: 1vh;
+    text-align: center;
+    background-color: rgb(17, 17, 65);
+}
+
+.cypher-text {
+    color: rgb(66, 210, 235);
+    font-family: url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;700;800&display=swap');
+}
+
+.copy-button {
+    margin-top: 2vh;
+}
+
+.copyBtn {
+    font-size: 2vh;
+    color: white;
+    font-family: url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;700;800&display=swap');
+    border: none;
+    border-radius: 10px;
+    padding: 1vh;
+    background-color: #121212;
+}
+
+.copyBtn:hover {
+    background-color: #39ace7;
+}

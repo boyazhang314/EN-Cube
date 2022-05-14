@@ -3,7 +3,9 @@
 .button {
     width: fit-content;
     height: auto;
-    margin: 5%;
+
+    margin-left: 5vh;
+    margin-right: 5vh;
 
     font-family: 'Rubik', sans-serif;
 

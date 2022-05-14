@@ -29,8 +29,12 @@ const Home = () => {
 
             {/* Buttons */}
             <div class="buttons">
-                <Button value="Encrypt" fontsize="10vh" onClick={() => navigate("/encrypt")} />
-                <Button value="Decrypt" fontsize="10vh" onClick={() => navigate("/decrypt")}/>
+                <div class="encrypt-button">
+                    <Button value="Encrypt" fontsize="10vh" onClick={() => navigate("/encrypt")} />
+                </div>
+                <div class="decrypt-button">
+                    <Button value="Decrypt" fontsize="10vh" onClick={() => navigate("/decrypt")} />
+                </div>
             </div>
         </div>
     )
