@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@700&display=swap');
+
+.home-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+}
+
+.title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+}
+
+#en-cube-logo {
+    width: 30%;
+    height: auto;
+    user-select: none;
+}
+
+#en-cube-hyphen {
+    width: 10%;
+    height: auto;
+    user-select: none;
+}
+
+#en-cube-title {
+    width: 10%;
+    height: auto;
+    user-select: none;
+}
+
+h1 {
+    font-family: 'Rubik', sans-serif;
+}
+
+#title-h1 {
+    color: #7ef9ff;
+    font-size: 20vh;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: fit-content; 
+
+    margin-top: 10%;
+}
