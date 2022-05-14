@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { ProgressBar, Step } from "react-step-progress-bar";
 import { useNavigate } from "react-router-dom";
 import "react-step-progress-bar/styles.css";
@@ -14,16 +14,36 @@ const Decrypt = () => {
     const [state, setState] = useState({
         cypherText: "",
         secretKey: "",
+        invalidCypher: false,
         shortText: false
     })
-
+    
     // multistep form
     const [multiStep, setMultiStep] = useState({percent: 25})
+
+    // check if hex
+    function isHex(str) {
+        const regex = new RegExp('^[0-9A-fa-f]*$')
+        return regex.test(str)
+    }    
 
     const stepForward = () => {
         if (multiStep.percent < 75) {
             if (state.cypherText.length >= 3) {
-                setMultiStep({ ...multiStep, percent: multiStep.percent + 50 })
+                // invalid cypher not properly updating
+                if (isHex(state.cypherText)) {
+                    setMultiStep({ ...multiStep, percent: multiStep.percent + 50 })
+                    setState({
+                        ...state,
+                        invalidCypher: false
+                    })
+                } else {
+                    setMultiStep({ ...multiStep, percent: multiStep.percent })
+                    setState({
+                        ...state,
+                        invalidCypher: true
+                    })
+                }
                 setState({
                     ...state,
                     shortText: false
@@ -38,7 +58,6 @@ const Decrypt = () => {
         } else if (multiStep.percent < 100) {
             setMultiStep({ ...multiStep, percent: multiStep.percent + 25 })
         }
-        window.scrollTo(0,300)
     }
 
     const stepBack = () => {
@@ -47,7 +66,6 @@ const Decrypt = () => {
         } else if (multiStep.percent < 100 && multiStep.percent >= 75) {
             setMultiStep({ ...multiStep, percent: multiStep.percent - 50 })
         }
-        window.scrollTo(0,300)
     }
 
     // next button
@@ -81,14 +99,14 @@ const Decrypt = () => {
         ) : multiStep.percent >= 100 ? (
             <PlainText state={state} setState={setState} />
         ) : ( "" )
-
+    
     // warning messages
     const warningMessage = (
         state.shortText ? (
             <div class="short-text">Please enter at least 3 characters</div>
-        ) : (
-            ""
-        )
+        ) : state.invalidCypher ? (
+            <div class="short-text">Please enter a valid cypher text</div>
+        ) : ( "" )
     )
 
     // page
@@ -97,7 +115,7 @@ const Decrypt = () => {
             <div class="progress-bar">
                 <ProgressBar width={"100vh"} height={5} percent={multiStep.percent}>
                 <Step transition="scale">
-                    {({ accomplished, index }) => state.shortText ? (
+                    {({ accomplished, index }) => (state.invalidCypher || state.shortText) ? (
                         <div className="progress-step fail">
                         <div
                             className="progress-step-circle"
