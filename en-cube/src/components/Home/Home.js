@@ -16,6 +16,9 @@ const Home = () => {
     const navigate = useNavigate();
     return (
         <div class="home-container">
+            <div class="information">
+                <Button value="Info" fontsize="2vh" onClick={() => navigate("/info")} />
+            </div>
             {/* Title and Logo */}
             <div class="title">
             <img src={logo} id="en-cube-logo" alt="EN-Cube's logo" />

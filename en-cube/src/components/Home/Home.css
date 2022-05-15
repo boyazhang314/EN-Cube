@@ -8,6 +8,11 @@
     width: fit-content;
 }
 
+.information {
+    margin-left: auto; 
+    margin-right: 0;
+}
+
 .title {
     display: flex;
     justify-content: center;
