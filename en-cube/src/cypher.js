@@ -5,14 +5,11 @@
 // encrypts the text in accordance to the key
 const encrypt = (text, key) => {
   var enc = textToHex(text).split("") // convert text to hexadecimal array
-  console.log(enc)
   // get individual moves
   var codes = key.split(" ")
   var map = new Map()
-  console.log(codes)
   // convert text depending on each move
   for (let code of codes) {
-    console.log(map.has(code.charAt(0)))
     if (map.has(code.charAt(0))) {
       map.set(code.charAt(0), 1 + map.get(code.charAt(0)))
     } else {
@@ -53,8 +50,6 @@ const encrypt = (text, key) => {
         break
     }
   }
-  console.log(map)
-  console.log(enc.join(""))
   return enc.join("")
 }
 
