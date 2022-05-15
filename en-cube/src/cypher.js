@@ -5,33 +5,110 @@
 // encrypts the text in accordance to the key
 const encrypt = (text, key) => {
   var enc = textToHex(text).split("") // convert text to hexadecimal array
-
+  console.log(enc)
   // get individual moves
   var codes = key.split(" ")
+  var map = new Map()
+  console.log(codes)
   // convert text depending on each move
   for (let code of codes) {
+    console.log(map.has(code.charAt(0)))
+    if (map.has(code.charAt(0))) {
+      map.set(code.charAt(0), 1 + map.get(code.charAt(0)))
+    } else {
+      map.set(code.charAt(0), 1)
+    }
     switch (code.charAt(0)) {
       // X axis
       case "L":
+        enc = xAxisEncode(enc, code, map.get("L"))
+        break
       case "M":
+        enc = xAxisEncode(enc, code, map.get("M"))
+        break
       case "R":
-        enc = xAxisEncode(enc, code, 1)
+        enc = xAxisEncode(enc, code, map.get("R"))
         break
       // Y axis
       case "U":
+        enc = yAxisEncode(enc, code, map.get("U"))
+        break
       case "E":
+        enc = yAxisEncode(enc, code, map.get("E"))
+        break
       case "D":
-        enc = yAxisEncode(enc, code, 1)
+        enc = yAxisEncode(enc, code, map.get("D"))
         break
       // Z axis
       case "F":
+        enc = zAxisEncode(enc, code, map.get("F"))
+        break
       case "S":
+        enc = zAxisEncode(enc, code, map.get("S"))
+        break
       case "B":
-        enc = zAxisEncode(enc, code, 1)
+        enc = zAxisEncode(enc, code, map.get("B"))
         break
       default:
         break
     }
+  }
+  console.log(map)
+  console.log(enc.join(""))
+  return enc.join("")
+}
+
+// encrypts the text in accordance to the key
+const encryptReverse = (text, key) => {
+  var enc = textToHex(text).split("") // convert text to hexadecimal array
+
+  // get individual moves
+  var codes = key.split(" ")
+  var map = new Map()
+  // convert text depending on each move
+  for (let code of codes) {
+    if (map.has(code.charAt(0))) {
+      map.set(code.charAt(0), 1 + map.get(code.charAt(0)))
+    } else {
+      map.set(code.charAt(0), 1)
+    }
+  }
+  for (let code of codes) {
+    switch (code.charAt(0)) {
+      // X axis
+      case "L":
+        enc = xAxisEncode(enc, code, map.get("L"))
+        break
+      case "M":
+        enc = xAxisEncode(enc, code, map.get("M"))
+        break
+      case "R":
+        enc = xAxisEncode(enc, code, map.get("R"))
+        break
+      // Y axis
+      case "U":
+        enc = yAxisEncode(enc, code, map.get("U"))
+        break
+      case "E":
+        enc = yAxisEncode(enc, code, map.get("E"))
+        break
+      case "D":
+        enc = yAxisEncode(enc, code, map.get("D"))
+        break
+      // Z axis
+      case "F":
+        enc = zAxisEncode(enc, code, map.get("F"))
+        break
+      case "S":
+        enc = zAxisEncode(enc, code, map.get("S"))
+        break
+      case "B":
+        enc = zAxisEncode(enc, code, map.get("B"))
+        break
+      default:
+        break
+    }
+    map.set(code.charAt(0), map.get(code.charAt(0)) - 1)
   }
 
   return enc.join("")
@@ -50,8 +127,7 @@ const decrypt = (text, key) => {
     }
   }
 
-
-  return hexToText(encrypt(hexToText(text), codes.join(" ")))
+  return hexToText(encryptReverse(hexToText(text), codes.join(" ")))
 }
 
 // encode all x-axis moves

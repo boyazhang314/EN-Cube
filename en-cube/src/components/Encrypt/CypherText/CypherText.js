@@ -4,6 +4,8 @@ import "./CypherText.css"
 import { encrypt } from "../../../cypher.js"
 
 const CypherText = ({state}) => {
+    console.log("here")
+    console.log(encrypt(state.plainText, state.secretKey))
     return (
         <div class="cypher-container">
             <div class="cypher-title">

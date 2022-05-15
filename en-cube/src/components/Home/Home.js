@@ -14,7 +14,6 @@ import e from "../../images/svgs/e.svg"
 
 const Home = () => {
     const navigate = useNavigate();
-
     return (
         <div class="home-container">
             {/* Title and Logo */}
