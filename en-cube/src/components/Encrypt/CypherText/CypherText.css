@@ -28,6 +28,12 @@
     background-color: rgb(17, 17, 65);
 }
 
+.cypher-text {
+    width: 100%;
+    text-align: center;
+    word-wrap: break-word;
+}
+
 .cypher-subody {
     width: 100vh;
     padding: 1vh;

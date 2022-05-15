@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react"
-import { ProgressBar, Step } from "react-step-progress-bar"
-import { useNavigate } from "react-router-dom"
-import "react-step-progress-bar/styles.css"
+import React, { useState } from "react"
+import { ProgressBar, Step } from "react-step-progress-bar";
+import { useNavigate } from "react-router-dom";
+import "react-step-progress-bar/styles.css";
 
 import "./Decrypt.css"
 

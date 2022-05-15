@@ -23,6 +23,7 @@
 .text-text {
     color: rgb(66, 210, 235);
     font-family: url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;700;800&display=swap');
+    word-wrap: break-word;
 }
 
 .copy-button {

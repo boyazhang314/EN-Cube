@@ -29,6 +29,11 @@ const CypherText = ({state}) => {
                     {state.secretKey}
                 </div>
             </div>
+            <div class="copy-button">
+                <button value="Copy" class="copyBtn" onClick={
+                    () => navigator.clipboard.writeText(state.secretKey)
+                }>Copy Secret Key</button>
+            </div>
         </div>
     )
 }

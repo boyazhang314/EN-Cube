@@ -5,7 +5,7 @@ import "./Home.css"
 
 import Button from "../Utilities/Button/Button"
 
-import logo from "../../images/enLogo.svg"
+import logo from "../../images/svgs/enLogo.svg"
 import hyphen from "../../images/svgs/hyphen.svg"
 import c from "../../images/svgs/c.svg"
 import u from "../../images/svgs/u.svg"

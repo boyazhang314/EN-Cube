@@ -320,6 +320,8 @@ function decToHex(d) {
       return "e"
     case 15:
       return "f"
+    default:
+      break;
   }
 }
 
@@ -350,6 +352,8 @@ function caesar(n, shift, op) {
       return decToHex((n + shift) % 16)
     case "-":
       return decToHex((n - shift + 16) % 16)
+    default:
+      break
   }
   return -1
 }
