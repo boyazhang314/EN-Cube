@@ -16,7 +16,7 @@ const PlainText = ({state}) => {
             </div>
             <div class="copy-button">
                 <button value="Copy" class="copyBtn" onClick={
-                    () => navigator.clipboard.writeText(state.plainText)
+                    () => navigator.clipboard.writeText(decrypt(state.cypherText, state.secretKey))
                 }>Copy to Clipboard</button>
             </div>
         </div>
