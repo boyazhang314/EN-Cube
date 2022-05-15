@@ -1,27 +1,32 @@
-  //////////////////////////////////////////////////
- // Encryption scheme using a 3 x 3 Rubik's Cube //
+//////////////////////////////////////////////////
+// Encryption scheme using a 3 x 3 Rubik's Cube //
 //////////////////////////////////////////////////
 
 // encrypts the text in accordance to the key
 const encrypt = (text, key) => {
-  console.log(textToHex(text))
-  var enc = textToHex(text).split('') // convert text to hexadecimal array
+  var enc = textToHex(text).split("") // convert text to hexadecimal array
 
   // get individual moves
   var codes = key.split(" ")
   // convert text depending on each move
   for (let code of codes) {
-    switch(code.charAt(0)) {
+    switch (code.charAt(0)) {
       // X axis
-      case "L": case "M": case "R":
+      case "L":
+      case "M":
+      case "R":
         enc = xAxisEncode(enc, code, 1)
         break
       // Y axis
-      case "U": case "E": case "D":
+      case "U":
+      case "E":
+      case "D":
         enc = yAxisEncode(enc, code, 1)
         break
       // Z axis
-      case "F": case "S": case "B":
+      case "F":
+      case "S":
+      case "B":
         enc = zAxisEncode(enc, code, 1)
         break
       default:
@@ -29,7 +34,7 @@ const encrypt = (text, key) => {
     }
   }
 
-  return (enc.join(''))
+  return enc.join("")
 }
 
 // decrypts the text in accordance to the key
@@ -45,41 +50,40 @@ const decrypt = (text, key) => {
     }
   }
 
-  console.log(codes)
-  
+
   return hexToText(encrypt(hexToText(text), codes.join(" ")))
 }
 
 // encode all x-axis moves
 function xAxisEncode(text, code, shift) {
   let ind, op
-  switch(code.charAt(0)) {
+  switch (code.charAt(0)) {
     case "L":
       ind = 0
       if (code.charAt(1) === "'") {
-        op = '+'
+        op = "+"
       } else {
-        op = '-'
+        op = "-"
       }
       break
     case "M":
       ind = 1
       if (code.charAt(1) === "'") {
-        op = '+'
+        op = "+"
       } else {
-        op = '-'
+        op = "-"
       }
       break
     case "R":
       ind = 2
       if (code.charAt(1) === "'") {
-        op = '-'
+        op = "-"
       } else {
-        op = '+'
+        op = "+"
       }
       break
     default:
-      break;
+      break
   }
 
   while (ind < text.length) {
@@ -87,46 +91,46 @@ function xAxisEncode(text, code, shift) {
     text[ind] = caesar(n, shift, op)
     ind += 3
   }
-  
+
   return text
 }
 
 // encode all y-axis moves
 function yAxisEncode(text, code, shift) {
   let dir, ind, inc
-  switch(code.charAt(0)) {
+  switch (code.charAt(0)) {
     case "U":
       ind = 0
       inc = 2
       if (code.charAt(1) === "'") {
-        dir = '->'
+        dir = "->"
       } else {
-        dir = '<-'
+        dir = "<-"
       }
-      break;
+      break
     case "E":
       ind = 0
       inc = 1
       if (code.charAt(1) === "'") {
-        dir = '->'
+        dir = "->"
       } else {
-        dir = '<-'
+        dir = "<-"
       }
-      break;
+      break
     case "D":
       ind = 1
       inc = 2
       if (code.charAt(1) === "'") {
-        dir = '<-'
+        dir = "<-"
       } else {
-        dir = '->'
+        dir = "->"
       }
-      break;
+      break
     default:
-      break;
+      break
   }
 
-  let poi = [ind + (shift * inc)] % text.length
+  let poi = [ind + shift * inc] % text.length
   const copy = [...text]
 
   while (ind < text.length) {
@@ -145,14 +149,14 @@ function yAxisEncode(text, code, shift) {
 // encode all z-axis moves
 function zAxisEncode(text, code, shift) {
   let start, end, rot
-  switch(code.charAt(0)) {
+  switch (code.charAt(0)) {
     case "F":
       start = 0
       end = text.length - 1
       if (code.charAt(1) === "'") {
         rot = "-+"
       } else {
-        rot = '+-'
+        rot = "+-"
       }
       break
     case "S":
@@ -161,7 +165,7 @@ function zAxisEncode(text, code, shift) {
       if (code.charAt(1) === "'") {
         rot = "-+"
       } else {
-        rot = '+-'
+        rot = "+-"
       }
       break
     case "B":
@@ -170,7 +174,7 @@ function zAxisEncode(text, code, shift) {
       if (code.charAt(1) === "'") {
         rot = "+-"
       } else {
-        rot = '-+'
+        rot = "-+"
       }
       break
     default:
@@ -192,9 +196,12 @@ function textToHex(ascii) {
   var arr = []
   for (let i = 0; i < ascii.length; ++i) {
     var hex = convert16(Number(ascii.charCodeAt(i)))
+    while (hex.length < 2) {
+      hex = "0" + hex
+    }
     arr.push(hex)
   }
-  return arr.join('')
+  return arr.join("")
 }
 
 // converts hexadecimal to ASCII
@@ -223,8 +230,8 @@ function convert16(num) {
 
 // decimal to hexadecimal
 function decToHex(d) {
-  if (d < 10) return d.toString();
-  switch(d) {
+  if (d < 10) return d.toString()
+  switch (d) {
     case 10:
       return "a"
     case 11:
@@ -242,7 +249,7 @@ function decToHex(d) {
 
 // hexadecimal to decimal
 function hexToDec(h) {
-  switch(h) {
+  switch (h) {
     case "a":
       return 10
     case "b":
@@ -262,10 +269,10 @@ function hexToDec(h) {
 
 // caesar cypher
 function caesar(n, shift, op) {
-  switch(op) {
-    case '+':
+  switch (op) {
+    case "+":
       return decToHex((n + shift) % 16)
-    case '-':
+    case "-":
       return decToHex((n - shift + 16) % 16)
   }
   return -1
