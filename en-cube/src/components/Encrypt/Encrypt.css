@@ -25,12 +25,14 @@
     width: 7vh;
     height: 7vh;
     color: white;
+    user-select: none;
 }
 
 .progress-step-title {
     font-size: 3vh;
     font-family: url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;700;800&display=swap');
     width: fit-content;
+    user-select: none;
 }
 
 .encrypt-box {

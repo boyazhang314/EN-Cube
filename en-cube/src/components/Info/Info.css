@@ -69,6 +69,7 @@ hr {
 
 #mo {
     width: 50%;
+    user-select: none;
 }
 
 .img-comment {

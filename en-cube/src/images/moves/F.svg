@@ -5,7 +5,7 @@
 <svg version='1.1' xmlns='http://www.w3.org/2000/svg'
 	width='1000' height='1000'
 	viewBox='-0.9 -0.9 1.8 1.8'>
-	<rect fill='#FFFFFF' x='-0.9' y='-0.9' width='1.8' height='1.8'/>
+	<rect fill='none' x='-0.9' y='-0.9' width='1.8' height='1.8'/>
 	<g style='opacity:0.9;stroke-opacity:0.5;stroke-width:0;stroke-linejoin:round'>
 		<polygon fill='#00D800' stroke='#000000'  points='-0.0160774080477,0.11867222553 -0.0160774080477,-0.10337005588 -0.198288032588,-0.0306376392412 -0.193735704878,0.197999672838'/>
 		<polygon fill='#00D800' stroke='#000000'  points='-0.016500210511,-0.144196964736 -0.016500210511,-0.377469892179 -0.203502596302,-0.312127233728 -0.198710835051,-0.0714645480976'/>
