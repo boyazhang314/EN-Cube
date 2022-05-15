@@ -36,6 +36,6 @@ The web app was deployed using [Firebase](https://firebase.google.com/)
   `npm install npm@latest -g`
 
 ## Installation
-- make sure you are in the correct directory `cd en-cube`
+- Make sure you are in the correct directory `cd en-cube`
 - Use `npm i` to install all dependencies
 - Host at [http://localhost:3000/](http://localhost:3000/) using `npm start`
