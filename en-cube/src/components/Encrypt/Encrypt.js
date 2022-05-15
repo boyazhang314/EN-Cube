@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { ProgressBar, Step } from "react-step-progress-bar"
 import { useNavigate } from "react-router-dom"
 import "react-step-progress-bar/styles.css"
@@ -17,8 +17,25 @@ const Encrypt = () => {
     shortText: false,
   })
 
+  const [shortMoves, setShortMoves] = useState(false)
+
+  const [clicked, setClicked] = useState(false)
+
   // multistep form
   const [multiStep, setMultiStep] = useState({ percent: 25 })
+
+  useEffect(() => {
+    if (
+      multiStep.percent >= 75 &&
+      multiStep.percent < 100 &&
+      window.cube.twistQueue.history.length < 10 &&
+      clicked
+    ) {
+      setShortMoves(true)
+    } else {
+      setShortMoves(false)
+    }
+  }, [state.secretKey])
 
   const stepForward = () => {
     if (multiStep.percent < 75) {
@@ -36,7 +53,14 @@ const Encrypt = () => {
         })
       }
     } else if (multiStep.percent < 100) {
-      setMultiStep({ ...multiStep, percent: multiStep.percent + 25 })
+      setClicked(true)
+      if (window.cube.twistQueue.history.length < 10) {
+        setMultiStep({ ...multiStep, percent: multiStep.percent })
+        setShortMoves(true)
+      } else {
+        setMultiStep({ ...multiStep, percent: multiStep.percent + 25 })
+        setShortMoves(false)
+      }
     }
     window.scrollTo(0, 300)
   }
@@ -107,6 +131,12 @@ const Encrypt = () => {
     ""
   )
 
+  const cubeWarningMessage = shortMoves ? (
+    <div className="short-text">Please enter at least 10 moves</div>
+  ) : (
+    ""
+  )
+
   // page
   const displayPage = (
     <div className="encrypt-section">
@@ -142,19 +172,33 @@ const Encrypt = () => {
             }
           </Step>
           <Step transition="scale">
-            {({ accomplished, index }) => (
-              <div className="progress-step">
-                <div
-                  className="progress-step-circle"
-                  style={{
-                    backgroundColor: accomplished ? "#39ace7" : "gray",
-                  }}
-                >
-                  {index + 1}
+            {({ accomplished, index }) =>
+              shortMoves ? (
+                <div className="progress-step fail">
+                  <div
+                    className="progress-step-circle"
+                    style={{
+                      backgroundColor: accomplished ? "#FF2400" : "gray",
+                    }}
+                  >
+                    !
+                  </div>
+                  <div className="progress-step-title ">Generate Key</div>
                 </div>
-                <div className="progress-step-title ">Generate Key</div>
-              </div>
-            )}
+              ) : (
+                <div className="progress-step">
+                  <div
+                    className="progress-step-circle"
+                    style={{
+                      backgroundColor: accomplished ? "#39ace7" : "gray",
+                    }}
+                  >
+                    {index + 1}
+                  </div>
+                  <div className="progress-step-title ">Generate Key</div>
+                </div>
+              )
+            }
           </Step>
           <Step transition="scale">
             {({ accomplished, index }) => (
@@ -177,6 +221,7 @@ const Encrypt = () => {
       <div className="encrypt-box">
         {displayForm}
         <div className="warning">{warningMessage}</div>
+        <div className="warning">{cubeWarningMessage}</div>
         <div className="encrypt-buttons">
           <div className="backBtn">{backButton}</div>
           <div className="nextBtn">{nextButton}</div>

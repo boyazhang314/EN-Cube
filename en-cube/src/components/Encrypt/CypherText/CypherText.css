@@ -14,14 +14,13 @@
 
 .cypher-subtitle {
     font-size: 4vh;
-    color: #ffffff;
+    color: #8fd6ff;
     font-family: 'Rubik', sans-serif;
     user-select: none;
-    margin-top: 5%;
+    margin-top: 2%;
 }
 
 .cypher-body {
-    margin-top: 4vh;
     width: 100vh;
     padding: 1vh;
     text-align: center;
@@ -47,14 +46,14 @@
 }
 
 .copy-button {
-    margin-top: 2vh;
+    margin-top: 0vh;
+    margin-bottom: 1vh;
 }
 
 .copyBtn {
     font-size: 2vh;
     color: white;
     font-family: url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;700;800&display=swap');
-    border: none;
     border-radius: 10px;
     padding: 1vh;
     background-color: #121212;
