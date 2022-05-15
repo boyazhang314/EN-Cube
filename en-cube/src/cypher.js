@@ -4,7 +4,6 @@
 
 // encrypts the text in accordance to the key
 const encrypt = (text, key) => {
-  console.log(textToHex(text))
   var enc = textToHex(text).split('') // convert text to hexadecimal array
 
   // get individual moves
@@ -44,8 +43,6 @@ const decrypt = (text, key) => {
       codes[i] = codes[i] + "'" // add prime
     }
   }
-
-  console.log(codes)
   
   return hexToText(encrypt(hexToText(text), codes.join(" ")))
 }
