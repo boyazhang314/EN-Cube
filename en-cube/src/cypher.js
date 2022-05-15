@@ -4,8 +4,8 @@
 
 // encrypts the text in accordance to the key
 const encrypt = (text, key) => {
+  console.log(textToHex(text))
   var enc = textToHex(text).split('') // convert text to hexadecimal array
-  console.log(enc)
 
   // get individual moves
   var codes = key.split(" ")
@@ -29,7 +29,7 @@ const encrypt = (text, key) => {
     }
   }
 
-  return hexToText(enc.join(''))
+  return (enc.join(''))
 }
 
 // decrypts the text in accordance to the key
@@ -44,12 +44,11 @@ const decrypt = (text, key) => {
       codes[i] = codes[i] + "'" // add prime
     }
   }
-  
-  return (encrypt(text, codes.join(" ")))
-}
 
-console.log(encrypt("Kevin", "U R' M E' R'"))
-console.log(hexToText(decrypt("e6b6565693", "U R' M E' R")))
+  console.log(codes)
+  
+  return hexToText(encrypt(hexToText(text), codes.join(" ")))
+}
 
 // encode all x-axis moves
 function xAxisEncode(text, code, shift) {

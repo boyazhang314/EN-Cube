@@ -17,7 +17,7 @@ const CypherText = ({state, setState}) => {
             <div class="input-text">
                 <textarea class="plaintext-input" rows="15"
                     onBlur={handleChange}
-                ></textarea>
+                >{state.cypherText}</textarea>
             </div>
         </div>
     )
