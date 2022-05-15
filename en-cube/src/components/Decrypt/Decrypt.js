@@ -14,29 +14,57 @@ const Decrypt = () => {
   const [state, setState] = useState({
     cypherText: "",
     secretKey: "",
-    shortText: false,
+    invalidCypher: false,
+    invalidKey: false
   })
 
   // multistep form
   const [multiStep, setMultiStep] = useState({ percent: 25 })
 
+  // hexadecimal regex
+  const regex = new RegExp("^[0-9a-fA-F]*$")
+
+  // test if key is valid
+  function validKey(key) {
+    var code = ["F", "F'", "S", "S'", "B", "B'", "L", "L'", "M", "M'", "R", "R'", "U", "U'", "E", "E'", "D", "D'"]
+    var keys = key.split(' ')
+    for (let k of keys) {
+      if (!code.includes(k) && k.length > 0) {
+        return false
+      } 
+    }
+    return true
+  }
+
   const stepForward = () => {
     if (multiStep.percent < 75) {
-      if (state.cypherText.length >= 3) {
+      if (regex.test(state.cypherText)) {
         setMultiStep({ ...multiStep, percent: multiStep.percent + 50 })
         setState({
           ...state,
-          shortText: false,
+          invalidCypher: false,
         })
       } else {
         setMultiStep({ ...multiStep, percent: multiStep.percent })
         setState({
           ...state,
-          shortText: true,
+          invalidCypher: true,
         })
       }
     } else if (multiStep.percent < 100) {
-      setMultiStep({ ...multiStep, percent: multiStep.percent + 25 })
+      if (validKey(state.secretKey)) {
+        setMultiStep({ ...multiStep, percent: multiStep.percent + 25 })
+        setState({
+          ...state,
+          invalidKey: false,
+        })
+      } else {
+        setMultiStep({ ...multiStep, percent: multiStep.percent })
+        setState({
+          ...state,
+          invalidKey: true,
+        })
+      }
     }
   }
 
@@ -98,8 +126,10 @@ const Decrypt = () => {
     )
 
   // warning messages
-  const warningMessage = state.shortText ? (
-    <div class="short-text">Please enter at least 3 characters</div>
+  const warningMessage = (state.invalidCypher && multiStep.percent < 75) ? (
+    <div class="short-text">Please enter a valid cypher text</div>
+  ) : (state.invalidKey && multiStep.percent < 100 && multiStep.percent > 25) ? (
+    <div class="short-text">Please enter a valid secret key</div>
   ) : (
     ""
   )
@@ -111,7 +141,7 @@ const Decrypt = () => {
         <ProgressBar width={"100vh"} height={5} percent={multiStep.percent}>
           <Step transition="scale">
             {({ accomplished, index }) =>
-              state.shortText ? (
+              state.invalidCypher ? (
                 <div className="progress-step fail">
                   <div
                     className="progress-step-circle"
@@ -139,7 +169,19 @@ const Decrypt = () => {
             }
           </Step>
           <Step transition="scale">
-            {({ accomplished, index }) => (
+            {({ accomplished, index }) => state.invalidKey ? (
+                <div className="progress-step fail">
+                  <div
+                    className="progress-step-circle"
+                    style={{
+                      backgroundColor: accomplished ? "#FF2400" : "gray",
+                    }}
+                  >
+                    !
+                  </div>
+                  <div className="progress-step-title">Cyper Text</div>
+                </div>
+              ) : (
               <div className="progress-step">
                 <div
                   className="progress-step-circle"

@@ -19,7 +19,7 @@ const Generate = ({state, setState}) => {
             <div class="secretkey-text">
                 <textarea class="secretkey-input" rows="1"
                     onBlur={handleChange}
-                ></textarea>
+                >{state.secretKey}</textarea>
             </div>
         </div>
     )
