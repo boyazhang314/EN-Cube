@@ -6,7 +6,7 @@
 
 ## About
 
-EN-Cube (encryption cube) has a simple and straightforwards user interface which focuses on the three main components of an encryption scheme
+EN-Cube (Encryption Cube) is an encryption scheme based off a 3x3 Rubik's Cube. It has a simple and straightforwards user interface which focuses on the three main components of an encryption scheme
 
 **Generation**
 
